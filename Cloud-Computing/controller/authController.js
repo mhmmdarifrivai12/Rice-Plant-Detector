@@ -67,14 +67,18 @@ const userDelete = (req, res) => {
 };
 
 const getUser = (req, res) => {
-  const sql = "SELECT * FROM users";
+  const sql = "SELECT username, email FROM users";
   dbConnection.query(sql, (err, result) => {
     if (err) {
+      console.error("Database Error:", err.message); // Log error
       return res.status(500).json({ status: false, message: err.message });
     }
+    console.log("Query Result:", result); // Log result
     return res.status(200).json({ status: true, data: result });
   });
 };
+
+
 
 const setToken = new Set();
 

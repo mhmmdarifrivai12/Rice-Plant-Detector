@@ -4,6 +4,7 @@ const dosisObat = require("../utils/dataObat");
 const kalkulasiDosis = (req, res) => {
   const { luasLahan, penyakit } = req.body;
 
+  // Validasi input
   if (!luasLahan || isNaN(luasLahan) || !penyakit || !dosisObat[penyakit]) {
     return res.status(400).json({ error: "Input invalid" });
   }
@@ -18,24 +19,34 @@ const kalkulasiDosis = (req, res) => {
     jumlahObat,
   };
 
-  res.status(200).json({ status: true, data: hasil });
+  // Simpan hasil kalkulasi ke database
+  const userId = req.user.id;  // Pastikan middleware 'authorization' mengisi req.user.id
+  const sql = "INSERT INTO predictions (user_id, penyakit, obat, kandunganBahan, jumlahObat, luasLahan) VALUES (?, ?, ?, ?, ?, ?)";
+  
+  dbConnection.query(sql, [userId, penyakit, obat, kandunganBahan, jumlahObat, luasLahan], (err, result) => {
+    if (err) {
+      console.error("Error inserting to DB:", err);
+      return res.status(500).json({ error: "Failed to save prediction" });
+    }
+    
+    res.status(200).json({ status: true, data: hasil });
+  });
 };
 
 const getAllHistory = (req, res) => {
-  const sql = "SELECT* FROM predictions";
-  dbConnection.query(sql,(err,result)=>{
-    if(err){
-      return res.status(500).json({status:false,message:err.message});
+  const sql = "SELECT * FROM predictions";
+  dbConnection.query(sql, (err, result) => {
+    if (err) {
+      return res.status(500).json({ status: false, message: err.message });
     }
-    return res.status(200).json({status:true, data:result});
-  })
+    return res.status(200).json({ status: true, data: result });
+  });
 };
 
 const getHistory = (req, res) => {
   const userId = req.user.id;
 
   const sql = "SELECT * FROM predictions WHERE user_id = ? ORDER BY created_at DESC";
-
   dbConnection.query(sql, [userId], (err, rows) => {
     if (err) {
       console.error("Error:", err);
@@ -46,7 +57,7 @@ const getHistory = (req, res) => {
     }
     res.json({
       status: true,
-      message: "History successfully",
+      message: "History successfully retrieved",
       data: rows,
     });
   });
