@@ -1,27 +1,20 @@
 {
+  "name": "cloudcomputing",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start-dev": "nodemon app.js",
+    "start": "node app.js"
+  },
   "dependencies": {
     "@google-cloud/storage": "^7.14.0",
     "axios": "^1.7.8",
-    "axios-retry": "^4.5.0",
-    "body-parser": "^1.20.3",
-    "express": "^4.21.1",
-    "express-fileupload": "^1.5.1",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "express": "~4.16.1",
+    "firebase-admin": "^13.0.1",
     "form-data": "^4.0.1",
-    "fs": "^0.0.1-security",
     "multer": "^1.4.5-lts.1",
-    "mysql2": "^3.11.5",
-    "pg": "^8.13.1",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.5"
-  },
-  "name": "api-py-nodejs",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+    "nodemon": "^3.1.7"
+  }
 }
