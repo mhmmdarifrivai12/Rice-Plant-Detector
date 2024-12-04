@@ -1,146 +1,115 @@
+import io
 from flask import Flask, request, jsonify
 import tensorflow as tf
 import numpy as np
-import os
 from PIL import Image
-import pandas as pd
-import json
-import requests
-import io
 
-# Flask Configuration
+class_names1 = ["Padi", "Bukan Padi"]
+
+class_names2 = ["Bacterial Leaf Blight", "Blast", "BrownSpot", "Tungro"]
+
+disease_info = {
+    "Bacterial Leaf Blight": {
+        "penyebab": "Penyakit hawar daun bakteri (HDB) disebabkan oleh Xanthomonas oryzae pv. Oryzae.",
+        "ciri_ciri": "Munculnya bercak atau lesi berbentuk garis memanjang sejajar dengan tulang daun berwarna kuning yang kemudian berubah menjadi cokelat pada daun.",
+        "gejala": "Muncul garis-garis berwarna hijau muda hingga hijau keabu-abuan yang berair pada daun. Seiring waktu garis-garis tersebut dapat menyatu membentuk luka yang lebih besar dengan tepian yang tidak rata. Semakin lama daun akan menguning, kemudian layu, dan akhirnya mati.",
+        "rekomendasi_obat": "Gunakan fungisida berbasis tembaga seperti tembaga hidroksida atau oksiklorida.",
+        "perawatan": "Hentikan sementara pemberian pupuk nitrogen hingga penyakit terkendali, karena nitrogen berlebih dapat memperparah infeksi."
+    },
+    "Blast": {
+        "penyebab": "Penyakit blast disebabkan oleh jamur Pyricularia oryzae.",
+        "ciri_ciri": "Bercak berbentuk berlian dengan pusat abu-abu hingga putih dan tepi cokelat gelap.",
+        "gejala": "Daun berlubang, pelepah padi menguning, dan dapat menyebabkan patahnya batang jika parah.",
+        "rekomendasi_obat": "Gunakan fungisida berbasis triazol seperti propikonazol atau tebukonazol.",
+        "perawatan": "Potong dan buang daun padi yang terinfeksi parah, terutama yang sudah menunjukkan gejala bercak besar. Hal ini untuk mengurangi sumber inokulum (jamur) yang dapat menyebar ke tanaman lain."
+    },
+    "BrownSpot": {
+        "penyebab": "Penyakit Brownspot (bercak coklat) disebabkan oleh jamur Cercospora janseane (Racib) O. Const.",
+        "ciri_ciri": "Bercak cokelat bundar kecil pada daun, yang berkembang menjadi bercak lebih besar dengan pusat abu-abu.",
+        "gejala": "Daun mengering, hasil panen menurun, dan pada kasus berat dapat menyebabkan kematian tanaman muda.",
+        "rekomendasi_obat": "Gunakan fungisida berbasis mankozeb atau klorotalonil.",
+        "perawatan": "Pastikan keseimbangan nutrisi dengan pupuk kaya nitrogen dan kalium, serta hindari stres air pada tanaman."
+    },
+    "Tungro": {
+        "penyebab": "Penyebab penyakit tungro pada tanaman padi adalah infeksi dari dua jenis virus yaitu Rice Tungro Spherical Virus (RTSV) dan Rice Tungro Bacilliform Virus (RTBV). Virus ini ditularkan oleh serangga yang dianggap bahaya sekaligus hama bagi tanaman padi, yaitu wereng hijau.",
+        "ciri_ciri": "Daun berubah kuning kemerahan, pertumbuhan terhambat, dan anakan tanaman berkurang.",
+        "gejala": "Gejala utama penyakit tungro terlihat pada perubahan warna daun terutama pada daun muda berwarna kuning oranye dimulai dari ujung daun. Daun muda agak menggulung, jumlah anakan berkurang, tanaman kerdil dan pertumbuhan terhambat.",
+        "rekomendasi_obat": "Kendalikan vektor dengan insektisida seperti imidakloprid atau tiametoksam.",
+        "perawatan": "Gunakan varietas tahan tungro, kendalikan populasi wereng dengan insektisida, dan hindari tumpang sari tanaman padi yang sakit."
+    }
+}
+
 app = Flask(__name__)
 
-# Load TFLite models from URLs
-paddy_model_url = 'https://storage.googleapis.com/rapid-apps/models/paddy.tflite'
-non_paddy_model_url = 'https://storage.googleapis.com/rapid-apps/models/non-paddy.tflite'
+def load_tflite_model(model_path):
+    interpreter = tf.lite.Interpreter(model_path=model_path)
+    interpreter.allocate_tensors()
+    return interpreter
 
-# Download and load TFLite models
-def load_tflite_model(model_url):
-    response = requests.get(model_url)
-    if response.status_code == 200:
-        model = tf.lite.Interpreter(model_content=response.content)
-        model.allocate_tensors()
-        return model
-    else:
-        raise Exception(f"Failed to fetch the model. Status code: {response.status_code}")
+def predict_with_tflite(interpreter, input_data):
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+    
+    interpreter.set_tensor(input_details[0]['index'], input_data)
+    interpreter.invoke()
+    
+    output_data = interpreter.get_tensor(output_details[0]['index'])
+    return output_data
 
-# Load TFLite interpreters
-interpreter_paddy = load_tflite_model(paddy_model_url)
-interpreter_non_paddy = load_tflite_model(non_paddy_model_url)
+model_non_paddy_tflite = load_tflite_model('converted_model_paddyvsnonpaddy.tflite')
+model_paddy_disease_tflite = load_tflite_model('converted_model_paddy_Valent.tflite')
 
-# Get input and output details
-paddy_input_details = interpreter_paddy.get_input_details()
-paddy_output_details = interpreter_paddy.get_output_details()
-non_paddy_input_details = interpreter_non_paddy.get_input_details()
-non_paddy_output_details = interpreter_non_paddy.get_output_details()
+@app.route('/')
+def home():
+    return "Hello, World!"
 
-# Class names
-class_names1 = ["Paddy", "Non Paddy"]  # Non-Paddy model classes
-class_names2 = ["Bacterialblight", "Blast", "Brownspot", "Tungro"]  # Paddy diseases
-
-# Image preprocessing
-def preprocess_image(image_bytes, target_size=(224, 224)):
-    img = Image.open(io.BytesIO(image_bytes)).convert('RGB')
-    img = img.resize(target_size)
-    img_array = np.array(img) / 255.0
-    return np.expand_dims(img_array, axis=0).astype(np.float32)
-
-# Load disease data from XLSX (from cloud storage)
-def load_disease_data(xlsx_url):
-    response = requests.get(xlsx_url)
-    if response.status_code == 200:
-        return pd.read_excel(io.BytesIO(response.content), engine='openpyxl')
-    else:
-        raise Exception(f"Failed to fetch the file. Status code: {response.status_code}")
-
-# Get disease information from the XLSX based on the disease name
-def get_disease_info(disease_name, disease_data):
-    disease_info = disease_data[disease_data['penyakit'] == disease_name].iloc[0]
-    return {
-        "penyebab": disease_info["penyebab"],
-        "ciri_ciri": disease_info["ciri-ciri"],
-        "gejala": disease_info["gejala"],
-        "rekomendasi_obat": disease_info["obat"],
-        "perawatan": disease_info["perawatan"]
-    }
-
-# Load disease data from Google Cloud Storage URL
-disease_data_url = 'https://storage.googleapis.com/rapid-apps/data/penyakit_padi.xlsx'
-disease_data = load_disease_data(disease_data_url)
-
-# Predict function
-def predict_image(image_bytes):
-    # Preprocess image
-    img_tensor = preprocess_image(image_bytes)
-
-    # Step 1: Predict if it's Paddy or Non-Paddy
-    interpreter_non_paddy.set_tensor(non_paddy_input_details[0]['index'], img_tensor)
-    interpreter_non_paddy.invoke()
-    non_paddy_prediction = interpreter_non_paddy.get_tensor(non_paddy_output_details[0]['index'])[0][0]
-
-    if non_paddy_prediction > 0.5:
-        predicted_class = class_names1[1]
-    else:
-        predicted_class = class_names1[0]
-
-    # Step 2: If Paddy, predict disease
-    if predicted_class == "Paddy":
-        interpreter_paddy.set_tensor(paddy_input_details[0]['index'], img_tensor)
-        interpreter_paddy.invoke()
-        paddy_predictions = interpreter_paddy.get_tensor(paddy_output_details[0]['index'])[0]
-        disease_index = np.argmax(paddy_predictions)
-        disease_class = class_names2[disease_index]
-        
-        # Get disease information from XLSX
-        disease_info = get_disease_info(disease_class, disease_data)
-
-        return {
-            "type": predicted_class,
-            "disease": disease_class,
-            "confidence": f"{paddy_predictions[disease_index] * 100:.2f}%",
-            "penyebab": disease_info["penyebab"],
-            "ciri_ciri": disease_info["ciri_ciri"],
-            "gejala": disease_info["gejala"],
-            "rekomendasi_obat": disease_info["rekomendasi_obat"],
-            "perawatan": disease_info["perawatan"]
-        }
-    else:
-        return {
-            "type": predicted_class,
-            "disease": "N/A",
-            "confidence": f"{non_paddy_prediction * 100:.2f}%",
-            "penyebab": "N/A",
-            "ciri_ciri": "N/A",
-            "gejala": "N/A",
-            "rekomendasi_obat": "N/A",
-            "perawatan": "N/A"
-        }
-
-# Flask routes
 @app.route('/predict', methods=['POST'])
 def predict():
-    if 'file' not in request.files:
-        return jsonify({"error": "No file uploaded."}), 400
+    if 'image' not in request.files:
+        return jsonify({'error': 'No image provided'}), 400
 
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({"error": "No file selected."}), 400
+    image_file = request.files['image']
 
-    # Get image bytes from the uploaded file
-    image_bytes = file.read()
+    if image_file.filename == '':
+        return jsonify({'error': 'No image selected'}), 400
 
-    # Prediction
     try:
-        result = predict_image(image_bytes)
+        image = Image.open(image_file.stream)
+
+        if image.mode != 'RGB':
+            image = image.convert('RGB')
+
+        img = image.resize((224, 224))
+
+        x = np.array(img)
+        x = np.expand_dims(x, axis=0)
+        x = x / 255.0
+        x = x.astype(np.float32)
+
+        predictions = predict_with_tflite(model_non_paddy_tflite, x)
+        predicted_probability_non_paddy = predictions[0][0]  
+        predicted_class_non_paddy = class_names1[1] if predicted_probability_non_paddy > 0.5 else class_names1[0]
+
+        if predicted_class_non_paddy == "Padi":
+            predictions = predict_with_tflite(model_paddy_disease_tflite, x)
+            predicted_class_index_paddy = np.argmax(predictions[0])
+            predicted_class_paddy = class_names2[predicted_class_index_paddy]
+
+            result = {
+                'label': predicted_class_paddy,
+                'penyebab': disease_info[predicted_class_paddy]["penyebab"],
+                'ciri_ciri': disease_info[predicted_class_paddy]["ciri_ciri"],
+                'gejala': disease_info[predicted_class_paddy]["gejala"],
+                'rekomendasi_obat': disease_info[predicted_class_paddy]["rekomendasi_obat"],
+                'perawatan': disease_info[predicted_class_paddy]["perawatan"]
+            }
+        else:
+            result = {'message': "This is not a Padi, so no disease prediction needed."}
+
         return jsonify(result)
+
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-@app.route('/health', methods=['GET'])
-def health_check():
-    return jsonify({"status": "API is running!"}), 200
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8080)
+    app.run(port=8080, debug=True)
