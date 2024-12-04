@@ -1,29 +1,21 @@
-# Gunakan image dasar Python
+# Gunakan image Python versi 3.10 yang ringan
 FROM python:3.10-slim
 
-# Set environment variable untuk memastikan Python tidak menulis pyc files
-ENV PYTHONUNBUFFERED 1
 
-# Install sistem dependensi (seperti libglib2.0-0 untuk beberapa dependensi TensorFlow)
-RUN apt-get update && apt-get install -y \
-    libglib2.0-0 \
-    libsm6 \
-    libxext6 \
-    libxrender-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Allow statements and log messages to immediately appear in the Knative logs
+ENV PYTHONUNBUFFERED True
 
-# Set working directory
-WORKDIR /app
+# Copy local code to the container image.
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY . ./
 
-# Copy file aplikasi ke dalam container
-COPY . /app
-
-# Install Python dependencies
-RUN pip install --upgrade pip
+# Install production dependencies.
 RUN pip install -r requirements.txt
 
-# Expose port aplikasi
-EXPOSE 8080
-
-# Jalankan aplikasi dengan Gunicorn (Flask di production mode)
-CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app"]
+# Run the web service on container startup. Here we use the gunicorn
+# webserver, with one worker process and 8 threads.
+# For environments with multiple CPU cores, increase the number of workers
+# to be equal to the cores available.
+# Timeout is set to 0 to disable the timeouts of the workers to allow Cloud Run to handle instance scaling.
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
