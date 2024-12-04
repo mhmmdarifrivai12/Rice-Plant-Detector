@@ -46,6 +46,13 @@ const predictDisease = async (req, res) => {
   try {
     const predictionResult = await predictDiseaseFromModel(req.file);
 
+  if (predictionResult?.message === "This is not a Padi, so no disease prediction needed.") {
+      return res.status(400).json({
+        status: false,
+        message: "Prediction failed, This is not a Padi,",
+      });
+   }
+
     const imageUrl = await uploadFileToStorage(req.file);
 
     const userId = req.user.uid;
