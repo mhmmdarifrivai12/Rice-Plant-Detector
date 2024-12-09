@@ -119,6 +119,54 @@ Unauthorized`
 }
 ```
 
+# API Detail History
+
+**Endpoint** : `api/history/historyId`
+
+**Method** : `GET`
+
+**Token required** : `No`
+
+### Response
+
+**Code** : `200 OK`
+
+```json
+{
+  "status": true,
+  "message": "Get Detail History Success",
+  "history": {
+    "id": "I3rdWg34gbosDmxVJxUP",
+    "userId": "y4pCn1xFCsUCYmzIGEQLZaFXw642",
+    "imageUrl": "https://storage.googleapis.com/bucket-img-user/image-1733646090764-917091537.jpg",
+    "predictionResult": {
+      "ciri_ciri": "Bercak berbentuk berlian dengan pusat abu-abu hingga putih dan tepi cokelat gelap.",
+      "gejala": "Daun berlubang, pelepah padi menguning, dan dapat menyebabkan patahnya batang jika parah.",
+      "label": "Blast",
+      "penyebab": "Penyakit blast disebabkan oleh jamur Pyricularia oryzae.",
+      "perawatan": "Potong dan buang daun padi yang terinfeksi parah, terutama yang sudah menunjukkan gejala bercak besar. Hal ini untuk mengurangi sumber inokulum (jamur) yang dapat menyebar ke tanaman lain.",
+      "rekomendasi_obat": "Gunakan fungisida berbasis triazol seperti propikonazol atau tebukonazol."
+    },
+    "timestamp": {
+      "_seconds": 1733646090,
+      "_nanoseconds": 882000000
+    }
+  }
+}
+```
+
+### Error Response
+
+**Code** : `404 Not Found`
+
+```json
+{
+  "status": false,
+  "message": "History not found"
+}
+```
+
+
 # API Delete History
 
 **Endpoint** : `/api/history/:predictionId`
