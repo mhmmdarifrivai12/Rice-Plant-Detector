@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp">
+
+
+    <TextView
+        android:id="@+id/tvwelcome1a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/teks_hello"
+        android:fontFamily="@font/pregular"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tvwelcome1b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="6dp"
+        android:text="@string/teks_farmer"
+        android:textColor="@color/green"
+        android:textSize="24sp"
+        android:fontFamily="@font/pregular"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvwelcome1a"
+        />
+
+    <TextView
+        android:id="@+id/tvdescwelcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/teks_description_home"
+        android:textSize="16sp"
+        android:fontFamily="@font/pregular"
+        android:lineSpacingExtra="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvwelcome1a"
+        />
+    
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardScan"
+        android:layout_width="match_parent"
+        android:layout_height="216dp"
+        android:layout_marginTop="139dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvdescwelcome"
+        android:background="@drawable/stroke_card"
+        >
+
+        <TextView
+            android:id="@+id/tvdescscancard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginHorizontal="19dp"
+            android:text="@string/teks_scan_description"
+            android:textSize="16sp"
+            android:fontFamily="@font/pregular"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btn_scan"
+            />
+
+        <Button
+            android:id="@+id/btn_scan"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:layout_marginBottom="19dp"
+            android:layout_marginHorizontal="19dp"
+            android:text="@string/btn_teks_scan"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:fontFamily="@font/psemibold"
+            android:background="@drawable/big_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="48dp"
+        android:contentDescription="@string/ilustrasi_scan"
+        android:src="@drawable/ilustration_scan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvdescwelcome"
+        />
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardCalculator"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardScan"
+        android:background="@drawable/stroke_card">
+        
+        <ImageView
+            android:id="@+id/ilustrationCalculator"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="18dp"
+            android:padding="7dp"
+            android:background="@drawable/small_rectangle_green"
+            android:src="@drawable/ilustration_calculator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tvCalculator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/btn_teks_calculator"
+            android:textSize="16sp"
+            android:fontFamily="@font/pregular"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ilustrationCalculator"
+            />
+        
+        <ImageView
+            android:id="@+id/icarrow"
+            android:layout_width="57dp"
+            android:layout_height="57dp"
+            android:layout_marginEnd="11dp"
+            android:padding="7dp"
+            android:src="@drawable/ic_arrow_right_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/loading_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

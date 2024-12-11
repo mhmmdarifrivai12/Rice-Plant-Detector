@@ -1,0 +1,19 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.RIPAD" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryVariant">@color/light_green</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="android:textColor">@color/white</item>
+
+        <!-- Customize your theme here. -->
+        <item name="colorControlNormal">@color/iconColor</item>
+        <item name="colorOnBackground">#FFFFFF</item> <!-- Putih -->
+
+
+    </style>
+</resources>

@@ -1,0 +1,106 @@
+<resources>
+
+    <!-- Aplikasi Name -->
+    <string name="app_name">RIPAD</string>
+
+    <!-- Naviagtion Name -->
+    <string name="title_home">Home</string>
+    <string name="title_history">History</string>
+
+
+    <!-- TEKS ONBOARDING 1-->
+    <string name="teks_skip">Skip</string>
+    <string name="title_onboarding1">Welcome to RIPAD</string>
+    <string name="description_onboarding1">Fast and accurate solution for your rice plant disease detection. Let\'s get started!</string>
+    <string name="teks_next">Next</string>
+
+    <!-- TEKS ONBOARDING 2-->
+    <string name="title_onboarding2">Easy Detection</string>
+    <string name="description_onboarding2">Upload a photo of your rice plant, and RIPAD will provide a diagnosis.</string>
+
+    <!-- TEKS ONBOARDING 3-->
+    <string name="title_onboarding3">Smarter Farming</string>
+    <string name="description_onboarding3">Support better harvest results with RIPAD technology.</string>
+    <string name="teks_start">Start Now</string>
+
+    <!-- Sign Up -->
+    <string name="teks_signup_title1.a">Let\'s Start</string>
+    <string name="teks_signup_title1.b">Your Exciting Journey!</string>
+    <string name="teks_username">User Name</string>
+    <string name="teks_usernamefield">Input User Name</string>
+    <string name="teks_emailaddress">Email Address</string>
+    <string name="teks_emailaddressfield">Input Email Address</string>
+    <string name="teks_password">Password</string>
+    <string name="teks_passwordfield">Input Password</string>
+    <string name="btn_teks_signup">Sign Up</string>
+    <string name="teks_or">OR</string>
+    <string name="btn_teks_signupgoogle">Sign Up with Google</string>
+    <string name="teks_haveaccount">Already Have an Account?</string>
+    <string name="btn_teks_tekssignin">Sign In</string>
+
+    <!-- Sign In -->
+    <string name="teks_signin_title1.a">Welcome</string>
+    <string name="teks_signin_title1.b">Back!</string>
+    <string name="teks_forget_account">Forget Password?</string>
+    <string name="btn_teks_signin">Sign In</string>
+    <string name="btn_teks_signingoogle">Sign In with Google</string>
+    <string name="teks_donthaveaccount">Don\'t Have an Account?</string>
+    <string name="btn_teks_teksSignUp">Sign Up</string>
+    <string name="default_web_client_id">759177171352-79bvo5b0n84j8trfr5nd4454gkt3f1ah.apps.googleusercontent.com</string>
+
+    <!-- Home -->
+    <string name="teks_hello">Hello</string>
+    <string name="teks_farmer">Farmer!</string>
+    <string name="teks_description_home">Identify Rice Diseases, Ensure a Healthy Harvest.</string>
+    <string name="teks_scan_description">Recognize Diseases Early with a Single Scan!</string>
+    <string name="btn_teks_scan">Scan Now</string>
+    <string name="btn_teks_calculator">Treatment Calculator</string>
+
+    <!-- History -->
+
+    <!-- Detail Desease -->
+    <string name="detail_desease">Detail Desease</string>
+    <string name="your_desease">Your Desease</string>
+    <string name="recomendation_item">Supporting line text lorem ipsum dolor sit amet, consectetur.Supporting line text lorem ipsum dolor sit amet, consectetur.</string>
+    <string name="description">Description</string>
+    <string name="recomendation">Recomendasi</string>
+
+
+    <!-- Recycle View -->
+    <string name="title_item">Title item</string>
+    <string name="image_desease">Image_Desease</string>
+    <string name="deskription_item">Supporting line text lorem ipsum dolor sit amet, consectetur. Supporting line text lorem ipsum dolor sit amet, consectetur.</string>
+    <string name="delete">Delete</string>
+
+
+    <!-- Image Description -->
+    <string name="logo_ripad">Logo Ripad</string>
+    <string name="logo_google">Logo Google</string>
+    <string name="ilustration_onboarding">Ilustration OnBoarding</string>
+    <string name="ilustrasi_scan">Ilustrasi Scan</string>
+    <string name="menu">Menu</string>
+    <string name="back_button">Back Button</string>
+    <string name="pilih_jenis_penyakit_padi">Pilih Jenis Penyakit Padi</string>
+    <string name="hawar_daun_padi">Hawar Daun Padi</string>
+    <string name="hawar_pelepah">Hawar Pelepah</string>
+    <string name="bercak_coklat">Bercak Coklat</string>
+    <string name="busuk_pelepah">Busuk Pelepah</string>
+    <string name="confirm">Confirm</string>
+    <string name="calculator_description">*Please fill in the following data to find out the recommended dosage for treating rice diseases.</string>
+    <string name="input_land_area_ha">Input Land Area (ha)</string>
+    <string name="desease_rice">Desease Rice</string>
+    <string name="recommendation">Recommendation</string>
+    <string name="calculate">Calculate</string>
+    <string name="diagnosis_result">Hasil Diagnosa</string>
+    <string name="ciri_ciri">Ciri ciri</string>
+    <string name="gejala">Gejala</string>
+    <string name="recomendasi_obat">Rekomendasi Obat</string>
+    <string name="penyebab">Penyebab</string>
+    <string name="perawatan">Perawatan</string>
+    <string name="no_history">There is no history</string>
+    <string name="bacterial_blight">Bacterial Blight</string>
+    <string name="blast">Blast</string>
+    <string name="brown_spot">Brown Spot</string>
+    <string name="tungro">Tungro</string>
+
+</resources>

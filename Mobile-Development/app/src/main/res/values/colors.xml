@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+
+    <!-- Warna RIPAD-->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="dark_gray">#ACB8C2</color>
+    <color name="light_gray">#F8F8F8</color>
+    <color name="light_green">#DCF9B2</color>
+    <color name="green">#70963F</color>
+    <color name="yellow">#D7AD14</color>
+    <color name="transparent">#00000000</color>
+    <color name="dark_green">#173627</color>
+    <color name="dark_gray_dark">#111111</color>
+    <color name="light_gray_dark">#8b8b8b</color>
+
+    <!--Warna Field form-->
+    <color name="hint_color">#ACB8C2</color>
+    <color name="edittext_text_color">#F8F8F8</color>
+
+    <!-- Icon Color-->
+    <color name="iconColor">#acb8c2</color> <!-- Hitam untuk mode terang -->
+
+
+
+</resources>

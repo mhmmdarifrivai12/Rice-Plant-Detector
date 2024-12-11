@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
+    tools:context=".ui.filtercalculator.FilterCalculatorActivity">
+    
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/ic_arrow_back_24"
+        android:background="@drawable/big_button"
+        android:padding="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tvPilihJenisPenyakit"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:paddingVertical="24dp"
+        android:text="@string/pilih_jenis_penyakit_padi"
+        android:fontFamily="@font/psemibold"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_back"
+        />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvPilihJenisPenyakit"
+        tools:ignore="MissingConstraints">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/stroke_rectangle_green"
+            android:fontFamily="@font/pregular"
+            android:paddingStart="20dp"
+            android:text="@string/bacterial_blight"
+            android:textSize="16sp"
+            tools:ignore="RtlSymmetry" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/stroke_rectangle_green"
+            android:fontFamily="@font/pregular"
+            android:paddingStart="20dp"
+            android:text="@string/blast"
+            android:textSize="16sp"
+            tools:ignore="RtlSymmetry" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/stroke_rectangle_green"
+            android:fontFamily="@font/pregular"
+            android:paddingStart="20dp"
+            android:text="@string/brown_spot"
+            android:textSize="16sp"
+            tools:ignore="RtlSymmetry" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/stroke_rectangle_green"
+            android:fontFamily="@font/pregular"
+            android:paddingStart="20dp"
+            android:text="@string/tungro"
+            android:textSize="16sp"
+            tools:ignore="RtlSymmetry" />
+        
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/confirm"
+        android:textColor="@color/white"
+        android:fontFamily="@font/psemibold"
+        android:background="@drawable/big_button"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
