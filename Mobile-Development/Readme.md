@@ -1,6 +1,6 @@
 # RIPAD
 
-AI Image Prediction App is an Android-based application that allows users to upload images and receive AI-based predictions via an API. The app is designed using the **MVVM** architecture to ensure modularity, scalability, and code manageability.
+Android-based application that allows users to upload images and receive AI-based predictions via an API. The app is designed using the **MVVM** architecture to ensure modularity, scalability, and code manageability.
 
 ## Features
 
