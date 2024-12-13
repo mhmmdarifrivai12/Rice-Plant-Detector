@@ -19,16 +19,17 @@ This project uses three main datasets, namely random-image-sample-dataset, blur-
     then run this:
 
     ```virtualenv ripad```
+
    Note: ripad is my virtual environment name
    
-5. In file explorer, you can see virtual environment created successfully.
+6. In file explorer, you can see virtual environment created successfully.
 
-6. Activate virtual environment by running this following command:
+7. Activate virtual environment by running this following command:
 
    ```ripad\Scripts\activate.bat```
-7. Left side we can see (skinsight) before file directory, that means virtual environment is active. Now virtual environment is activated, we will install required library for the project.
+8. Left side we can see (skinsight) before file directory, that means virtual environment is active. Now virtual environment is activated, we will install required library for the project.
 
-8. Install the required library by running this following command:
+9. Install the required library by running this following command:
 
    ```pip install flask```
 
@@ -38,8 +39,8 @@ This project uses three main datasets, namely random-image-sample-dataset, blur-
 
    Note: make sure you have a compatible version of Python installed on your system as well.
 
-9. Run the flask application
+10. Run the flask application
 
    ```python main.py```
-10. Server is running. Open url [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in browser.
+11. Server is running. Open url [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in browser.
    
