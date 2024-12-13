@@ -10,7 +10,7 @@ This project uses three main datasets, namely random-image-sample-dataset, blur-
 
 # How to test Flask API using cmd
 1. Download the Flask API folder (in master branch).
-2. Download and copy model h5 to Flask directory.
+2. Download and copy model h5 or tflite to Flask directory.
 3. Open cmd and navigate to Flask API directory.
 4. Create a Python virtual environment by running this following command:
    
